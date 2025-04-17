@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Carros Deportivos Aleatorios</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background: #121212;
+      color: #fff;
+      text-align: center;
+      padding: 20px;
+      margin: 0;
+    }
+    h1 {
+      color: #ffcc00;
+      margin-bottom: 30px;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+    }
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    #carImage {
+      width: 90%;
+      max-width: 700px;
+      height: 400px;
+      object-fit: cover;
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+      margin: 20px auto;
+      display: block;
+      background: #333;
+      transition: opacity 0.5s;
+    }
+    .loading {
+      opacity: 0.7;
+    }
+    button {
+      padding: 12px 24px;
+      font-size: 18px;
+      border: none;
+      border-radius: 6px;
+      background-color: #ff5722;
+      color: #fff;
+      cursor: pointer;
+      margin: 20px 0;
+      transition: all 0.3s;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+    button:hover {
+      background-color: #e64a19;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+    }
+    button:active {
+      transform: translateY(0);
+    }
+    .car-info {
+      margin-top: 20px;
+      font-style: italic;
+      color: #aaa;
+    }
+    .error {
+      color: #ff5555;
+      font-style: italic;
+    }
+    @media (max-width: 600px) {
+      #carImage {
+        height: 250px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Carros Deportivos Aleatorios</h1>
+    <button onclick="cargarCarro()">Mostrar otro carro</button>
+    <div>
+      <img id="carImage" src="" alt="Carro deportivo aleatorio" class="loading">
+    </div>
+    <p id="carInfo" class="car-info">Cargando imagen de carro deportivo...</p>
+    <p id="errorMessage" class="error"></p>
+  </div>
+
+  <script>
+    // Lista de imágenes predefinidas de autos deportivos (URLs de Unsplash)
+    const imagenesAutos = [
+      "https://images.unsplash.com/photo-1494976388531-d1058494cdd8",
+      "https://images.unsplash.com/photo-1504215680853-026ed2a45def",
+      "https://images.unsplash.com/photo-1541899481282-d53bffe3c35d",
+      "https://images.unsplash.com/photo-1511919884226-fd3cad34687c",
+      "https://images.unsplash.com/photo-1555215695-3004980ad54e",
+      "https://images.unsplash.com/photo-1583121274602-3e2820c69888",
+      "https://images.unsplash.com/photo-1503376780353-7e6692767b70",
+      "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf",
+      "https://images.unsplash.com/photo-1514316703785-1745f7ea6d71",
+      "https://images.unsplash.com/photo-1542362567-b07e54358753",
+      "https://images.unsplash.com/photo-1517524008697-84bbe3c3fd98",
+      "https://images.unsplash.com/photo-1547038577-da80abbc4f19",
+      "https://images.unsplash.com/photo-1555353540-64580b51c258",
+      "https://images.unsplash.com/photo-1507136566006-cfc505b114fc",
+      "https://images.unsplash.com/photo-1590362891991-f776e747a588"
+    ];
+
+    function cargarCarro() {
+      const img = document.getElementById('carImage');
+      const info = document.getElementById('carInfo');
+      const errorMsg = document.getElementById('errorMessage');
+      
+      // Mostrar estado de carga
+      img.classList.add('loading');
+      info.textContent = "Cargando imagen...";
+      errorMsg.textContent = "";
+      
+      const randomIndex = Math.floor(Math.random() * imagenesAutos.length);
+      const imgUrl = `${imagenesAutos[randomIndex]}?w=700&h=400&auto=format&fit=crop`;
+      
+      img.onload = function() {
+        img.classList.remove('loading');
+        info.textContent = "Imagen de carro deportivo cargada";
+      };
+      
+      img.onerror = function() {
+        img.classList.remove('loading');
+        errorMsg.textContent = "Error al cargar la imagen. Intenta de nuevo.";
+        info.textContent = "";
+      };
+      
+      img.src = imgUrl;
+    }
+
+    // Cargar al iniciar
+    window.onload = cargarCarro;
+  </script>
+</body>
+</html>
